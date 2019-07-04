@@ -1,0 +1,17 @@
+{
+  "name": "mobx-cocos",
+  "version": "1.0.0",
+  "main": "lib/mobx-cocos.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oyb81076/mobx-cocos.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rm -rf lib",
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "mobx": ">=5.0.0"
+  }
+}
