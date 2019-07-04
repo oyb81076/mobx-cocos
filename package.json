@@ -13,5 +13,8 @@
   },
   "peerDependencies": {
     "mobx": ">=5.0.0"
+  },
+  "devDependencies": {
+    "mobx": "^5.11.0"
   }
 }
