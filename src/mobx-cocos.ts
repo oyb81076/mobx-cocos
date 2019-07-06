@@ -9,7 +9,7 @@ export const observer = <T extends new (...args: any[]) => any>(Constructor: T) 
     /**
      * 开始ob
      */
-    public _observe(){
+    public _observe() {
       const __disposer = this.__disposer;
       if (__disposer.length) { return; }
       const __autorun = this.__autorun;
@@ -31,14 +31,14 @@ export const observer = <T extends new (...args: any[]) => any>(Constructor: T) 
     /**
      * 结束ob
      */
-    public _dispose(){
+    public _dispose() {
       const __disposer = this.__disposer;
       if (__disposer.length) {
         __disposer.splice(0).forEach((x) => x());
       }
     }
     public onLoad() {
-      if (super.onEnable && super.onLoad() === false) {
+      if (super.onLoad && super.onLoad() === false) {
         return;
       }
       this._observe();
@@ -48,6 +48,18 @@ export const observer = <T extends new (...args: any[]) => any>(Constructor: T) 
       if (super.onDestroy) {
         super.onDestroy();
       }
+    }
+    public unuse() {
+      if (super.unuse) {
+        super.unuse();
+      }
+      this._dispose();
+    }
+    public reuse() {
+      if (super.reuse) {
+        super.reuse(...Array.prototype.slice.call(arguments, 0))
+      }
+      this._observe();
     }
   };
 };
