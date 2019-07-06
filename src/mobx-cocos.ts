@@ -6,13 +6,12 @@ export const observer = <T extends new (...args: any[]) => any>(Constructor: T) 
     public __disposer: IReactionDisposer[] = [];
     public __reaction?: string[];
     public __autorun?: string[];
-    public onLoad() {
-      if (super.onLoad) {
-        if ((super.onLoad() as boolean | void) === false) {
-          return;
-        }
-      }
+    /**
+     * 开始ob
+     */
+    public _observe(){
       const __disposer = this.__disposer;
+      if (__disposer.length) { return; }
       const __autorun = this.__autorun;
       const __reaction = this.__reaction;
       if (__autorun) {
@@ -29,14 +28,25 @@ export const observer = <T extends new (...args: any[]) => any>(Constructor: T) 
         });
       }
     }
-    public onDestroy() {
+    /**
+     * 结束ob
+     */
+    public _dispose(){
       const __disposer = this.__disposer;
       if (__disposer.length) {
-        __disposer.forEach((x) => x());
-        __disposer.length = 0;
+        __disposer.splice(0).forEach((x) => x());
       }
-      if (super.onDestroy) {
-        super.onDestroy();
+    }
+    public onEnable() {
+      if (super.onEnable) {
+        super.onEnable()
+      }
+      this._observe();
+    }
+    public onDisable() {
+      this._dispose();
+      if (super.onDisable) {
+        super.onDisable();
       }
     }
   };
