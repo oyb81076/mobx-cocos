@@ -37,16 +37,16 @@ export const observer = <T extends new (...args: any[]) => any>(Constructor: T) 
         __disposer.splice(0).forEach((x) => x());
       }
     }
-    public onEnable() {
-      if (super.onEnable) {
-        super.onEnable()
+    public onLoad() {
+      if (super.onEnable && super.onLoad() === false) {
+        return;
       }
       this._observe();
     }
-    public onDisable() {
+    public onDestroy() {
       this._dispose();
-      if (super.onDisable) {
-        super.onDisable();
+      if (super.onDestroy) {
+        super.onDestroy();
       }
     }
   };
