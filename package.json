@@ -7,6 +7,13 @@
     "url": "https://github.com/oyb81076/mobx-cocos.git"
   },
   "license": "MIT",
+  "keywords": [
+    "mobx",
+    "cocos creator",
+    "observable",
+    "data flow",
+    "reactive"
+  ],
   "scripts": {
     "prebuild": "rm -rf lib",
     "build": "tsc"
