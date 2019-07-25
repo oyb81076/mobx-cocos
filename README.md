@@ -2,14 +2,29 @@
 yarn install mobx-cocos
 ## 使用说明
 ```ts
-import { observer, render, reactor, react } from "mobx-cocos";
-import { action, observable } from "mobx";
+// cfg.ts
+// mobx 相关配置
+import { configure } from "mobx";
+configure({ enforceActions: "observed" });
+```
+```ts
+// componentStore.ts
+// 数据源
+
+import { observable } from "mobx";
 class ComponentStore {
   @observable public array: number[] = [0, 1, 2];
   @observable public counter = 0;
   @observable public shadowCounter = this.counter;
 }
-const store = new ComponentStore();
+export const componentStore = new ComponentStore();
+```
+```ts
+// Component.ts
+import { observer, render, reactor, react } from "mobx-cocos";
+import { componentStore as store } from "./componentStore";
+import { action, observable } from "mobx";
+const { ccclass } = cc._decorator;
 /**
  * 由 @observer 注解的类, 会将 @render 和 @reactor 所注解的方法 纳入生命周期来管理
  */
